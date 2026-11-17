@@ -1,3 +1,4 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -18,6 +19,28 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
+  // =========================
+  // AUTHENTICATION
+  // =========================
+
+  login(data: any): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/api/auth/login`,
+      data
+    );
+  }
+
+  register(data: any): Observable<any> {
+    return this.http.post(
+      `${this.apiUrl}/api/auth/register`,
+      data
+    );
+  }
+
+  // =========================
+  // VIDEO MANAGEMENT
+  // =========================
+
   uploadVideo(
     title: string,
     notes: string,
@@ -30,14 +53,14 @@ export class ApiService {
     formData.append('file', file);
 
     return this.http.post<Video>(
-      `${this.apiUrl}/videos`,
+      `${this.apiUrl}/api/videos`,
       formData
     );
   }
 
   listVideos(): Observable<Video[]> {
     return this.http.get<Video[]>(
-      `${this.apiUrl}/videos`
+      `${this.apiUrl}/api/videos`
     );
   }
 
@@ -46,53 +69,65 @@ export class ApiService {
     metrics: Metrics
   ): Observable<Video> {
     return this.http.put<Video>(
-      `${this.apiUrl}/videos/${id}/metrics`,
+      `${this.apiUrl}/api/videos/${id}/metrics`,
       metrics
     );
   }
 
   deleteVideo(id: string): Observable<any> {
     return this.http.delete(
-      `${this.apiUrl}/videos/${id}`
+      `${this.apiUrl}/api/videos/${id}`
     );
   }
+
+  // =========================
+  // ANALYTICS
+  // =========================
 
   summary(): Observable<Summary> {
     return this.http.get<Summary>(
-      `${this.apiUrl}/analytics/summary`
+      `${this.apiUrl}/api/analytics/summary`
     );
   }
 
+  // =========================
+  // AI FEATURES
+  // =========================
+
   analyze(id: string): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}/ai/analyze/${id}`,
+      `${this.apiUrl}/api/ai/analyze/${id}`,
       {}
     );
   }
 
   ideas(topic: string): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}/ai/ideas`,
+      `${this.apiUrl}/api/ai/ideas`,
       { topic }
     );
   }
 
   content(topic: string): Observable<any> {
     return this.http.post(
-      `${this.apiUrl}/ai/content`,
+      `${this.apiUrl}/api/ai/content`,
       { topic }
     );
   }
 
+  // =========================
+  // HISTORY
+  // =========================
+
   history(): Observable<HistoryItem[]> {
     return this.http.get<HistoryItem[]>(
-      `${this.apiUrl}/history`
+      `${this.apiUrl}/api/history`
     );
   }
 
   deleteHistory(id: string): Observable<any> {
     return this.http.delete(
-      `${this.apiUrl}/history/${id}`
+      `${this.apiUrl}/api/history/${id}`
     );
   }
 }

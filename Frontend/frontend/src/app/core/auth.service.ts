@@ -1,3 +1,4 @@
+
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -45,7 +46,7 @@ export class AuthService {
     password: string
   ): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
-      `${this.apiUrl}/auth/register`,
+      `${this.apiUrl}/api/auth/register`,
       { name, email, password }
     ).pipe(
       tap(response => this.saveSession(response))
@@ -57,7 +58,7 @@ export class AuthService {
     password: string
   ): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(
-      `${this.apiUrl}/auth/login`,
+      `${this.apiUrl}/api/auth/login`,
       { email, password }
     ).pipe(
       tap(response => this.saveSession(response))
