@@ -40,7 +40,10 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:4200",
         "http://127.0.0.1:4200",
-        "https://content-analyzer-7g8v9gil6-haris9048s-projects.vercel.app"
+
+        # Vercel deployment URLs
+        "https://content-analyzer-7g8v9gil6-haris9048s-projects.vercel.app",
+        "https://content-analyzer-34op1g3fk-haris9048s-projects.vercel.app"
     ],
     allow_credentials=True,
     allow_methods=["*"],
